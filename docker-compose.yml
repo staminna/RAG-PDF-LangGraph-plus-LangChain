@@ -1,6 +1,9 @@
+version: '3'
+
 volumes:
     langgraph-data:
         driver: local
+
 services:
     langgraph-redis:
         image: redis:6
@@ -40,3 +43,14 @@ services:
             REDIS_URI: redis://langgraph-redis:6379
             LANGSMITH_API_KEY: ${LANGSMITH_API_KEY}
             POSTGRES_URI: postgres://postgres:postgres@langgraph-postgres:5432/postgres?sslmode=disable
+    rag-app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./data:/app/data
+        environment:
+            - TOKENIZERS_PARALLELISM=false
+        restart: unless-stopped

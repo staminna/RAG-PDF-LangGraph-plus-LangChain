@@ -12,6 +12,16 @@
   "logging": {
     "level": "info",
     "output": "console"
-  }
+  },
+  "dependencies": [
+    ".",
+    "langchain_community",
+    "sentence-transformers"
+  ],
+  "graphs": {
+    "rag": "rag_app.agent:app"
+  },
+  "env": "./.env",
+  "python_version": "3.11"
 }
 
